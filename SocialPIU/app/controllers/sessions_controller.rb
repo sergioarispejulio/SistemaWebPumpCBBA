@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     if user
       redirect_back_or_to root_url, :notice => "Logged in!"
     else
-      redirect_to login_path
+      redirect_to login_path, :notice => "Error al iniciar seccion, vuelva a intentarlo"
     end
   end
 

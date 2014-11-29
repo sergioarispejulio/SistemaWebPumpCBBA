@@ -20,7 +20,8 @@ class UsuariosController < ApplicationController
     if @user.save
       redirect_to root_url, :notice => "Signed up!"
     else
-      render :new
+
+      render :new, :mensaje => "Error al crear la cuenta, vuelva a intentarlo"
     end
   end
 
