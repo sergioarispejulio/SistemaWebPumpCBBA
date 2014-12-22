@@ -17,10 +17,16 @@
         <%= link_to "Log in", login_path  %>.
       <% end %>
     </div>
+    <%= link_to "Ver calendario", "viewcalendario" %>
     <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, :id => "flash_#{name}" %>
     <% end %>
+
+
+
+
     <%= yield %>
+
   </div>
 </body>
 </html>

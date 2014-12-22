@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  description: MyString
+  direction: MyString
+  enable: 
+  iduser: 
+  name: MyString
+  type: 
+
+two:
+  description: MyString
+  direction: MyString
+  enable: 
+  iduser: 
+  name: MyString
+  type: 

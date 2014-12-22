@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get "login" => "sessions#new", :as => "login"
   get "signup" => "usuarios#new", :as => "signup"
   get "user/crearusu" => "usuarios#create"
+  get "viewcalendario" => "calendario#viewcalendario"
+
 
   root :to => "start#index"
 
