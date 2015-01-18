@@ -4,11 +4,11 @@ class CalendarioController < ApplicationController
 		if(params[:fecha] != nil)
 			@ano = params[:fecha].year
 			@mes = params[:fecha].month 
-			@diasemana= params[:fecha].strftime("%A")
+			@diasemana= Date.new(@ano,@mes,1).strftime("%A")
 		else			
 			@ano = Date.today.year
 			@mes = Date.today.month 
-			@diasemana= Date.today.strftime("%A")
+			@diasemana= Date.new(@ano,@mes,1).strftime("%A")
 		end
 		if(@mes == 1 || @mes == 3 || @mes == 5 || @mes == 7 || @mes == 8 || @mes == 10 || @mes == 12) #31 dias
 			@dias = 31
@@ -23,12 +23,34 @@ class CalendarioController < ApplicationController
 				else # 28 dias
 					@dias = 28
 				end
-
 			else # 30 dias
 				@dias = 30
 			end
 		end
-		@lista = Event.where(:enable => true, :created_at => Date.new(ano,mes,1)..Date.new(ano,mes,dias))
+		@lista = Event.where(:enable => true, :created_at => Date.new(@ano,@mes,1)..Date.new(@ano,@mes,@dias))
+		if ((@diasemana <=> "Monday") == 0 )
+			@recorrer = 1
+		end
+		if ((@diasemana <=> "Tuesday") == 0)
+			@recorrer = 2
+		end
+		if ((@diasemana <=> "Wednesday") == 0)
+			@recorrer = 3
+		end
+		if ((@diasemana <=> "Thursday") == 0)
+			@recorrer = 4
+		end
+		if ((@diasemana <=> "Friday") == 0)
+			@recorrer = 5
+		end
+		if ((@diasemana <=> "Saturday") == 0)
+			@recorrer = 6
+		end
+		if ((@diasemana <=> "Sunday") == 0)
+			@recorrer = 0
+		end
+		@i=0
+		@cont = 1
 	end
 
 	def new

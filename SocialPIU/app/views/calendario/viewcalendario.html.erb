@@ -1,4 +1,41 @@
-<%=@ano %><br>
-			<%=@mes %><br>
-			<%=@diasemana%><br>
-			<%=@dias %><br>
+<br><br>
+<table BORDER="1">
+
+	<tr>
+		<td>Domingo</td>
+		<td>Lunes</td>
+		<td>Martes</td>
+		<td>Miercoles</td>
+		<td>Jueves</td>
+		<td>Viernes</td>
+		<td>Sabado</td>
+	</tr>
+
+	<tr>
+		<%for @i in 0..6%>
+			<td>
+				<%if (@recorrer > 0)%>
+					<%@recorrer = @recorrer - 1%>
+				<%else%>
+					<%=@cont %>
+					<%@cont = @cont + 1%>
+				<%end%>
+			</td>
+		<%end%>
+	</tr>
+
+	<%for x in 0..4%>	
+		<tr>
+			<%for @i in 0..6%>
+				<td>
+					<%if (@cont <= @dias)%>
+						<%=@cont %>
+						<%@cont = @cont + 1%>
+					<%end%>
+				</td>
+				<%@i = @i + 1%>
+			<%end%>
+		</tr>
+	<%end%>
+
+</table>
