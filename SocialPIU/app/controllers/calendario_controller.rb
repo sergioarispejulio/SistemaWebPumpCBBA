@@ -1,9 +1,9 @@
 class CalendarioController < ApplicationController
 
 	def viewcalendario
-		if(params[:fecha] != nil)
-			@ano = params[:fecha].year
-			@mes = params[:fecha].month 
+		if(params[:ano] != nil && params[:mes] != nil)
+			@ano = params[:ano].to_i
+			@mes = params[:mes].to_i
 			@diasemana= Date.new(@ano,@mes,1).strftime("%A")
 		else			
 			@ano = Date.today.year
