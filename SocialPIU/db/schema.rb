@@ -19,7 +19,9 @@ ActiveRecord::Schema.define(version: 20141217163507) do
     t.boolean  "enable"
     t.boolean  "iduser"
     t.string   "name"
-    t.string   "type"
+    t.string   "tipo"
+    t.date     "date_create"
+    t.date     "date_modify"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

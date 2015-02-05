@@ -27,7 +27,7 @@ class CalendarioController < ApplicationController
 				@dias = 30
 			end
 		end
-		@lista = Event.where(:enable => true, :created_at => Date.new(@ano,@mes,1)..Date.new(@ano,@mes,@dias))
+		@lista = Event.where(:enable => true, :date_modify => Date.new(@ano,@mes,1)..Date.new(@ano,@mes,@dias))
 		if ((@diasemana <=> "Monday") == 0 )
 			@recorrer = 1
 		end
@@ -50,6 +50,7 @@ class CalendarioController < ApplicationController
 			@recorrer = 0
 		end
 		@i=0
+		@tot = @lista.length
 		@cont = 1
 	end
 
@@ -60,7 +61,7 @@ class CalendarioController < ApplicationController
 	private
 
 	def user_params
-    	params.require(:event).permit(:description, :direction, :enable, :iduser, :name, :type)
+    	params.require(:event).permit(:description, :direction, :enable, :iduser, :name, :tipo, :date_modify)
   	end
 
 end

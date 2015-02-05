@@ -6,8 +6,10 @@ class CreateEvents < ActiveRecord::Migration
       t.boolean :enable
       t.boolean :iduser
       t.string :name
-      t.string :type
-
+      t.string :tipo
+      t.date :date_create
+      t.date :date_modify
+      
       t.timestamps
     end
   end

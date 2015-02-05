@@ -11,13 +11,14 @@
     <div class="user_nav">
       <% if current_user %>
         Logged in as <%= current_user.email %>.
+        <a href="/event/newevent">Crear Evento</a>
         <%= link_to "Log out", logout_path %>
       <% else %>
         <%= link_to "Sign up", signup_path %> or
         <%= link_to "Log in", login_path  %>.
       <% end %>
     </div>
-    <%= link_to "Ver calendario", "viewcalendario" %>
+    <a href="/viewcalendario">Ver Calendario</a>
     <% flash.each do |name, msg| %>
       <%= content_tag :div, msg, :id => "flash_#{name}" %>
     <% end %>

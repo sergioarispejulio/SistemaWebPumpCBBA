@@ -23,6 +23,13 @@
 					<%@recorrer = @recorrer - 1%>
 				<%else%>
 					<%=@cont %>
+
+					<% @lista.each do |elemento| %>
+						<%if elemento.date_modify == Date.new(@ano,@mes,@cont)%>
+							<%=elemento.name%>
+						<%end%>
+					<%end%>
+
 					<%@cont = @cont + 1%>
 				<%end%>
 			</td>
