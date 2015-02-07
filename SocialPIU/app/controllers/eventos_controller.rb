@@ -11,6 +11,7 @@ class EventosController < ApplicationController
 		@evento.name = params[:Name]
 		@evento.iduser = params[:Iduse]
 		@evento.enable = params[:Enable]
+		@evento.date_create = Date.today
 		@evento.date_modify = Date.today
 		if @evento.save
     		redirect_to :controller => :start, :method => :index
@@ -26,6 +27,10 @@ class EventosController < ApplicationController
 	end
 
 	def accept
+	end
+
+	def view
+		@evento = Event.find(params[:id])
 	end
 
 	private
