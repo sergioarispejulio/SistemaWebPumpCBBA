@@ -5,29 +5,39 @@
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
+
 </head>
 <body class="<%= params[:controller] %>">
-  <div id="container">
-    <div class="user_nav">
-      <% if current_user %>
-        Logged in as <%= current_user.email %>.
-        <a href="/event/newevent">Crear Evento</a>
-        <%= link_to "Log out", logout_path %>
-      <% else %>
-        <%= link_to "Sign up", signup_path %> or
-        <%= link_to "Log in", login_path  %>.
-      <% end %>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+
+    <div class="navbar-header">
+      <div id="container">
+        <div class="user_nav">
+          <ul class="nav navbar-nav">
+            <% if current_user %>
+              Logged in as <%= current_user.email %>
+              <li><a href="/event/newevent">Crear Evento</a></li>
+              <li><%= link_to "Log out", logout_path %></li>
+            <% else %>
+              <li><%= link_to "Sign up", signup_path %></li>
+              <li><%= link_to "Log in", login_path  %></li>
+            <% end %>   
+            <li><a href="/viewcalendario">Ver Calendario</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <a href="/viewcalendario">Ver Calendario</a>
-    <% flash.each do |name, msg| %>
-      <%= content_tag :div, msg, :id => "flash_#{name}" %>
-    <% end %>
-    
+  </div>
+</nav>
+ 
 
-
+<div class="jumbotron">
 
     <%= yield %>
 
-  </div>
+</div>
 </body>
 </html>
