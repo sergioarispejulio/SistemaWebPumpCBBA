@@ -1,12 +1,16 @@
 <center>
-<h1> <%=@evento.name%> </h1> <br>
-<h4><%=@evento.tipo%> </h4> <br>
+<%if @evento.iduser == current_user.id && @evento.date_modify >= Date.today %>
+	<a href="/event/edit/<%=@evento.id%>">Editar</a><br>
+<%end%>
 
-<h4>Lugar: <%=@evento.direction%> </h4> <br>
+<h1><%=@evento.name%> </h1> <br>
+<h4><%=@evento.tipo%> </h4> 
+
+<h4>Lugar: <%=@evento.direction%> </h4>
 
 Descripcion<br>
 <table>
-<tr><td> <%=@evento.description%> %></td></tr>
+<tr><td> <%=@evento.description%></td></tr>
 </table>
 
 </center>

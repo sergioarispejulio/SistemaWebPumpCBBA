@@ -11,7 +11,7 @@
 </form>
 
 <br><br>
-<table BORDER="1">
+<table BORDER="1" class="CSSTableGenerator">
 
 	<tr>
 		<td>Domingo</td>
@@ -25,6 +25,7 @@
 
 	<tr>
 		<%for @i in 0..6%>
+
 			<td>
 				<%if (@recorrer > 0)%>
 					<%@recorrer = @recorrer - 1%>
@@ -33,22 +34,31 @@
 
 					<% @lista.each do |elemento| %>
 						<%if elemento.date_modify == Date.new(@ano,@mes,@cont)%>
-							<a href="event/<%=elemento.id%>"><%=elemento.name%> </a><br>
+							<a href="/event/<%=elemento.id%>"><%=elemento.name%> </a><br>
 						<%end%>
 					<%end%>
 
 					<%@cont = @cont + 1%>
 				<%end%>
 			</td>
+			
 		<%end%>
 	</tr>
 
 	<%for x in 0..4%>	
 		<tr>
+
 			<%for @i in 0..6%>
 				<td>
 					<%if (@cont <= @dias)%>
-						<%=@cont %>
+						<%=@cont %><br>
+
+						<% @lista.each do |elemento| %>
+							<%if elemento.date_modify == Date.new(@ano,@mes,@cont)%>
+								<a href="event/<%=elemento.id%>"><%=elemento.name%> </a><br>
+							<%end%>
+						<%end%>
+
 						<%@cont = @cont + 1%>
 					<%else%>
 						&nbsp;
@@ -56,6 +66,7 @@
 				</td>
 				<%@i = @i + 1%>
 			<%end%>
+
 		</tr>
 	<%end%>
 

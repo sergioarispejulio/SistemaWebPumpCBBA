@@ -1,0 +1,42 @@
+<form action="/event/update">
+
+	Titulo <input name="Name" type="text" value="<%=@evento.name%>"/> <br>
+	Lugar <input name="Direction" type="text" value="<%=@evento.direction%>" /> <br>
+	Fecha <input name="Fecha" type="date" min="<%=Date.today%>" value="<%=@evento.date_modify%>"/> <br>
+	Tipo de evento <select name="tipo">
+
+		<%if @evento.tipo == "Torneo Local"%>
+			<option value="Torneo Local" selected>Torneo Local</option>
+		<%else%>
+			<option value="Torneo Local">Torneo Local</option>
+		<%end%>
+
+		<%if @evento.tipo == "Torneo Regional"%>
+			<option value="Torneo Regional" selected>Torneo Regional</option>
+		<%else%>
+			<option value="Torneo Regional">Torneo Regional</option>
+		<%end%>
+
+		<%if @evento.tipo == "Torneo Nacional"%>
+			<option value="Torneo Nacional" selected>Torneo Nacional</option>
+		<%else%>
+			<option value="Torneo Nacional">Torneo Nacional</option>
+		<%end%>
+
+		<%if @evento.tipo == "Reunion Comunidad"%>
+			<option value="Reunion Comunidad" selected>Reunion Comunidad</option>
+		<%else%>
+			<option value="Reunion Comunidad">Reunion Comunidad</option>
+		<%end%>
+
+	</select><br>
+	Descripcion<br>
+	<textarea rows="10" cols="50" name="Description"><%=@evento.description%></textarea><br>
+
+
+	<input type="hidden" name="Iduse" value="<%=@evento.iduser%>" />
+	<input type="hidden" name="id" value="<%=@evento.id%>" />
+   
+ 	<input type="submit" />   
+ 	<input type="reset" />
+</form>

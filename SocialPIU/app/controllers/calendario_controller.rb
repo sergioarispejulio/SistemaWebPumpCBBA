@@ -61,7 +61,7 @@ class CalendarioController < ApplicationController
 	private
 
 	def user_params
-    	params.require(:event).permit(:description, :direction, :enable, :iduser, :name, :tipo, :date_modify)
+    	params.require(:event).permit(:description, :direction, :enable, :iduser, :name, :tipo, :updated_at, :date_modify)
   	end
 
 end

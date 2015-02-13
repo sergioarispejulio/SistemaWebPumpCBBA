@@ -20,10 +20,13 @@
             <% if current_user %>
               Logged in as <%= current_user.email %>
               <li><a href="/event/newevent">Crear Evento</a></li>
-              <li><%= link_to "Log out", logout_path %></li>
+              <li><%= link_to "Cerra seccion", logout_path %></li>
+              <% if current_user.Admi == true%>
+                <li><a href="/event/viewnotaceptedevents">Ver eventos pendientes</a></li>
+              <%end%>
             <% else %>
-              <li><%= link_to "Sign up", signup_path %></li>
-              <li><%= link_to "Log in", login_path  %></li>
+              <li><%= link_to "Crear cuenta", signup_path %></li>
+              <li><%= link_to "Iniciar seccion", login_path  %></li>
             <% end %>   
             <li><a href="/viewcalendario">Ver Calendario</a></li>
           </ul>

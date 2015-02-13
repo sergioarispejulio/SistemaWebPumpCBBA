@@ -1,0 +1,41 @@
+<table BORDER="1" class="CSSTableGenerator">
+	<tr>
+		<td>Nombre evento</td>
+		<td>Fecha creacion</td>
+		<td>Fecha modificacion</td>
+		<td>Usuario que creo el evento</td>
+		<td>¿Aceptar?</td>
+		<td>¿Eliminar?</td>
+	</tr>
+
+<% @evento.each do |elemento| %>
+	<tr>
+		<td>
+			<a href="event/<%=elemento.id%>"><%=elemento.name%></a>
+		</td>
+		<td>
+			<%=elemento.date_create%>
+		</td>
+		<td>
+			<%=elemento.date_modify%>
+		</td>
+		<td>
+			<%usu = User.find(elemento.iduser)%>
+			<%=usu.Name + usu.LastName%>
+		</td>
+		<td>
+			<form action="/event/accept">
+				<input type="hidden" name="id" value="<%=elemento.id%>" />
+				<input type="submit" value="Aceptar evento"/> 
+			</form>
+		</td>
+		<td>
+			<form action="/event/delete">
+				<input type="hidden" name="id" value="<%=elemento.id%>" />
+				<input type="submit" value="Eliminar evento"/> 
+			</form>
+		</td>
+	</tr>
+<%end%>
+
+</table>

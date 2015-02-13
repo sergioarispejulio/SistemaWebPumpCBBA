@@ -6,11 +6,19 @@ Rails.application.routes.draw do
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
   get "signup" => "usuarios#new", :as => "signup"
+
   get "event/newevent" => "eventos#new"
   get "event/createevent" => "eventos#create"
-  get "user/crearusu" => "usuarios#create"
-  get "viewcalendario" => "calendario#viewcalendario"
+  get "event/accept" => "eventos#accept"
+  get "event/delete" => "eventos#delete"
+  get "event/edit/:id" => "eventos#edit"
+  get "event/update" => "eventos#update"
+  get "event/viewnotaceptedevents" => "eventos#viewnotaceptedevents"
   get "event/:id" => "eventos#view"
+
+  get "user/crearusu" => "usuarios#create"
+
+  get "viewcalendario" => "calendario#viewcalendario"
 
 
   root :to => "start#index"

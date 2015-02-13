@@ -13,6 +13,7 @@ class SorceryCore < ActiveRecord::Migration
 	  t.string :City 
 	  t.date :Birthday 
 	  t.string :Nickname 
+    t.boolean :Admi
       t.timestamps
     end
 

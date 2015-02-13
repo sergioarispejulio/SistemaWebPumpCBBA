@@ -4,7 +4,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :description
       t.string :direction
       t.boolean :enable
-      t.boolean :iduser
+      t.integer :iduser
       t.string :name
       t.string :tipo
       t.date :date_create

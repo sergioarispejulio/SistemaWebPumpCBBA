@@ -17,6 +17,7 @@ class UsuariosController < ApplicationController
     @user.Birthday = params[:Birthday]
     @user.Nickname = params[:Nickname]
     @user.Enable = params[:Enable]
+    @user.Admi = false
     if @user.save
       redirect_to root_url, :notice => "Signed up!"
     else

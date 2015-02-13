@@ -2,17 +2,18 @@
 
 	Titulo <input name="Name" type="text" /> <br>
 	Lugar <input name="Direction" type="text" /> <br>
+	Fecha <input name="Fecha" type="date" min="<%=Date.today%>" value="<%=Date.today%>"/> <br>
 	Tipo de evento <select name="tipo">
 		<option value="Torneo Local" selected>Torneo Local</option>
 		<option value="Torneo Regional">Torneo Regional</option>
 		<option value="Torneo Nacional">Torneo Nacional</option>
 		<option value="Reunion Comunidad">Reunion Comunidad</option>
 	</select><br>
+	Descripcion<br>
 	<textarea rows="10" cols="50" name="Description"></textarea><br>
 
 
-	<input type="hidden" name="Iduse" value=<%=current_user.id%> />
-	<input type="hidden" name="Enable" value="true" />
+	<input type="hidden" name="Iduse" value="<%=current_user.id%>" />
    
  	<input type="submit" />   
  	<input type="reset" />
