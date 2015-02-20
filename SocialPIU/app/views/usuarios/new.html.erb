@@ -1,8 +1,4 @@
-<%if params[:mensaje] then%>
-ERROR al crear la cuenta, vuelva a intentarlo
-<%end%>
-
-<form action="/user/crearusu" method="crearusu">
+<form action="/usuarios/crearusu" method="crearusu">
 
 	Nombre <input name="Name" type="text" /> <br>
 	Apellido <input name="LastName" type="text" /> <br>
@@ -11,14 +7,19 @@ ERROR al crear la cuenta, vuelva a intentarlo
 	<option value="Hombre">Masculino</option>
 	<option value="Mujer">Femenino</option>
 	</select><br>
-	Pais <input name="Country" type="text" /> <br>
-	Ciudad <input name="City" type="text" /> <br>
+	Categoria <select name="Type">
+	<option value="Inical">Inicial</option>
+	<option value="Semiprofesional">Semiprofesional</option>
+	<option value="Profesional">Profesional</option>
+	<option value="Freestyler">Freestyle</option>
+	</select><br>
 	Email <input name="email" type="text" /> <br>
 	Fecha de Nacimiento <input name="Birthday" type="date" /> <br>
 	Contrasena <input name="password" type="password" /> <br>
 	Repetir Contrasena <input name="password_confirmation" type="password" /> <br>
 
-	<input type="hidden" name="Type" value="jugador" />
+	<input name="Country" type="hidden" value="Bolivia" /> 
+ 	<input name="City" type="hidden" value="Cochabamba" /> 
 	<input type="hidden" name="Enable" value="false" />
    
  	<input type="submit" />   

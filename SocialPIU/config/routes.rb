@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :users  
-  resources :sessions  
-
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
   get "signup" => "usuarios#new", :as => "signup"
@@ -16,10 +13,18 @@ Rails.application.routes.draw do
   get "event/viewnotaceptedevents" => "eventos#viewnotaceptedevents"
   get "event/:id" => "eventos#view"
 
-  get "user/crearusu" => "usuarios#create"
+  get "usuarios/crearusu" => "usuarios#create"
+  get "usuarios/controlusers" => "usuarios#controlusers"
+  post "usuarios/delete" => "usuarios#delete"
+  get "usuarios/edit/:id" => "usuarios#edit"
+  get "usuarios/view/:id" => "usuarios#view"
+  get "usuarios/update" => "usuarios#update"
+  post "usuarios/activate" => "usuarios#activate"
 
   get "viewcalendario" => "calendario#viewcalendario"
 
+  resources :users  
+  resources :sessions  
 
   root :to => "start#index"
 

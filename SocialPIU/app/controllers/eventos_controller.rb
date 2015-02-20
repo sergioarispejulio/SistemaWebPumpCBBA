@@ -18,16 +18,20 @@ class EventosController < ApplicationController
 		@evento.date_create = params[:Fecha]
 		@evento.date_modify = params[:Fecha]
 		if @evento.save
-    		redirect_to :controller => :start, :method => :index
+			if(current_user.Admi == true)
+				redirect_to :controller => :start, :method => :index, :messeange => "Evento creado"
+			else
+				redirect_to :controller => :start, :method => :index, :messeange => "Evento creado, esperar hasta que un administrador valide el evento"
+			end
     	else
-    		redirect_to :controller => :eventos, :method => :new
+    		redirect_to :controller => :eventos, :method => :new, :messeange => "Error al crear el evento, vuelva a intentarlo"
   		end
 	end
 
 	def delete
 		@evento = Event.find(params[:id])
       	@evento.destroy
-      	redirect_to :controller => :eventos, :method => :viewnotaceptedevents
+      	redirect_to "/event/viewnotaceptedevents", :messeange => "Evento eliminado"
 	end
 
 	def edit
@@ -43,9 +47,9 @@ class EventosController < ApplicationController
 		@evento.iduser = params[:Iduse]
 		@evento.date_modify = params[:Fecha]
 		if @evento.save
-    		redirect_to "/event/"+params[:id]
+    		redirect_to "/event/"+params[:id], :messeange => "Evento editado"
     	else
-    		redirect_to :controller => :eventos, :method => :edit, :id => params[:id]
+    		redirect_to :controller => :eventos, :method => :edit, :id => params[:id], :messeange => "Error al editar evento, vuelva a intentarlo"
   		end
 	end
 
@@ -53,9 +57,9 @@ class EventosController < ApplicationController
 		@evento = Event.find(params[:id])
       	@evento.enable = true
       	if @evento.save
-    		redirect_to :controller => :eventos, :method => :viewnotaceptedevents
+    		redirect_to "/event/viewnotaceptedevents", :messeange => "Evento aceptado"
     	else
-    		redirect_to :controller => :eventos, :method => :viewnotaceptedevents
+    		redirect_to "/event/viewnotaceptedevents", :messeange => "Error al aceptar evento"
   		end
 	end
 

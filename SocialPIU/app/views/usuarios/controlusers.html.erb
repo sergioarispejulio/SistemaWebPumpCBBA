@@ -1,0 +1,67 @@
+<table BORDER="1" class="CSSTableGenerator">
+	<tr>
+		<td>Nombre</td>
+		<td>Nickname</td>
+		<td>Correo electronico</td>
+		<td>Sexo</td>
+		<td>Pais</td>
+		<td>Ciudad</td>
+		<td>Fecha de cumpleanos</td>
+		<td>Categoria</td>
+		<td>¿Suspender o activas?</td>
+		<td>Eliminar</td>
+	</tr>
+
+<% @user.each do |elemento| %>
+	<tr>
+
+		<td>
+			<a href="/usuarios/view/<%=elemento.id%>"><%=elemento.Name%> <%=elemento.LastName%></a>
+		</td>
+		<td>
+			<%=elemento.Nickname%>
+		</td>
+		<td>
+			<%=elemento.email%>
+		</td>
+		<td>
+			<%=elemento.Genre%>
+		</td>
+		<td>
+			<%=elemento.Country%>
+		</td>
+		<td>
+			<%=elemento.City%>
+		</td>
+		<td>
+			<%=elemento.Birthday%>
+		</td>
+		<td>
+			<%=elemento.Type%>
+		</td>
+		<td>
+			<%if elemento.Enable%>
+				<form action="/usuarios/activate" method="post">
+					<input type="hidden" name="id" value="<%=elemento.id%>" />
+					<input type="hidden" name="enable" value="false" />
+					<input type="submit" value="Inhabilitar usuario"/> 
+				</form>
+			<%else%>
+				<form action="/usuarios/activate" method="post">
+					<input type="hidden" name="id" value="<%=elemento.id%>" />
+					<input type="hidden" name="enable" value="true" />
+					<input type="submit" value="Habilitar usuario"/> 
+				</form>
+			<%end%>
+		</td>
+		<td>
+			<form action="/usuarios/delete" method="post">
+				<input type="hidden" name="id" value="<%=elemento.id%>" />
+				<input type="submit" value="Eliminar eusuario"/> 
+			</form>
+		</td>
+
+	</tr>
+<%end%>
+
+</table>

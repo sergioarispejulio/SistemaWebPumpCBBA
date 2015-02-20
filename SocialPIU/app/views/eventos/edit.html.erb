@@ -29,6 +29,12 @@
 			<option value="Reunion Comunidad">Reunion Comunidad</option>
 		<%end%>
 
+		<%if @evento.tipo == "Otros"%>
+			<option value="Otros" selected>Otros</option>
+		<%else%>
+			<option value="Otros">Otros</option>
+		<%end%>
+
 	</select><br>
 	Descripcion<br>
 	<textarea rows="10" cols="50" name="Description"><%=@evento.description%></textarea><br>

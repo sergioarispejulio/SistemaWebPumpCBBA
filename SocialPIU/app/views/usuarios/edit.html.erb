@@ -1,0 +1,54 @@
+<form action="/usuarios/update">
+
+	Nombre <input name="Name" type="text" value="<%=@user.Name%>"/> <br>
+	Apellido <input name="LastName" type="text" value="<%=@user.LastName%>" /> <br>
+	Nickname <input name="Nickname" type="text" value="<%=@user.Nickname%>"/> <br>
+
+	Sexo <select name="Genre">
+	<%if @user.Genre == "Hombre"%>
+		<option value="Hombre" selected>Masculino</option>
+	<%else%>
+		<option value="Hombre">Masculino</option>
+	<%end%>
+	<%if @user.Genre == "Mujer"%>
+		<option value="Mujer" selected>Femenino</option>
+	<%else%>
+		<option value="Mujer">Femenino</option>
+	<%end%>
+	</select><br>
+
+	Categoria <select name="Type">
+	<%if @user.Type == "Inical"%>
+		<option value="Inical" selected>Inicial</option>
+	<%else%>
+		<option value="Inical">Inicial</option>
+	<%end%>
+	<%if @user.Type == "Semiprofesional"%>
+		<option value="Semiprofesional" selected>Semiprofesional</option>
+	<%else%>
+		<option value="Semiprofesional">Semiprofesional</option>
+	<%end%>
+	<%if @user.Type == "Profesional"%>
+		<option value="Profesional" selected>Profesional</option>
+	<%else%>
+		<option value="Profesional">Profesional</option>
+	<%end%>
+	<%if @user.Type == "Freestyler"%>
+		<option value="Freestyler" selected>Freestyle</option>
+	<%else%>
+		<option value="Freestyler">Freestyle</option>
+	<%end%>
+	</select><br>
+
+	Email <input name="email" type="text" value="<%=@user.email%>"/> <br>
+	Fecha de Nacimiento <input name="Birthday" type="date" value="<%=@user.Birthday%>"/> <br>
+	Nueva contrasena <input name="newpassword" type="password"/> <br>
+	Repetir Contrasena <input name="password_confirmation" type="password" /> <br>
+	Escriba su contraseña actual para que los cambios se hagan<br>
+	Contrasena actual <input name="oldpassword" type="password"/> <br> 
+
+	<input type="hidden" name="id" value="<%=params[:id]%>" />
+   
+ 	<input type="submit" />   
+ 	<input type="reset" />
+</form>
