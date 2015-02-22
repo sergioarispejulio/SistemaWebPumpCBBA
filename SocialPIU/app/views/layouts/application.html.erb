@@ -39,8 +39,9 @@
  
 <center>
 <div class="jumbotron">
-<%if params[:messeange]%>
-<center><%=params[:messeange]%></center><br>
+<%if Messenger.instance.devolvermensa != ""%>
+<center><%=Messenger.instance.devolvermensa%></center><br>
+<%Messenger.instance.limpiar%>
 <%end%>
 
     <%= yield %>

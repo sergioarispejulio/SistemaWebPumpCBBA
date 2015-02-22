@@ -9,10 +9,12 @@ class SessionsController < ApplicationController
         redirect_back_or_to root_url
       else
         logout
-        redirect_to login_path, :messeange => "Su cuenta no a sido validada aun"
+        Messenger.instance.obtenermensa("Su cuenta no a sido validada aun") 
+        redirect_to login_path
       end
     else
-      redirect_to login_path, :messeange=> "Error al iniciar seccion, vuelva a intentarlo"
+      Messenger.instance.obtenermensa("Error al iniciar seccion, vuelva a intentarlo") 
+      redirect_to login_path
     end
   end
 

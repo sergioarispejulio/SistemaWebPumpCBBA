@@ -1,7 +1,9 @@
-<center>
-<%if @evento.iduser == current_user.id && @evento.date_modify >= Date.today %>
-	<a href="/event/edit/<%=@evento.id%>">Editar</a><br>
-<%end%>
+
+	<%if current_user%>
+		<%if @evento.iduser == current_user.id && @evento.date_modify >= Date.today %>
+			<a href="/event/edit/<%=@evento.id%>">Editar</a><br>
+		<%end%>
+	<%end%>
 
 <h1><%=@evento.name%> </h1> <br>
 <h4><%=@evento.tipo%> </h4> 
@@ -13,4 +15,3 @@ Descripcion<br>
 <tr><td> <%=@evento.description%></td></tr>
 </table>
 
-</center>

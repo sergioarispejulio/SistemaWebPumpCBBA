@@ -1,6 +1,5 @@
 class UsuariosController < ApplicationController
   def new
-    @user = User.new
   end
   
   def create
@@ -19,9 +18,11 @@ class UsuariosController < ApplicationController
     @user.Enable = false
     @user.Admi = false
     if @user.save
-      redirect_to :controller => :start, :method => :index, :messeange => "Registrado, espere a que se un administrador le autorize su cuenta"
+      Messenger.instance.obtenermensa("Registrado, espere a que se un administrador le autorize su cuenta")
+      redirect_to :controller => :start, :method => :index
     else
-      redirect_to :controller => :usuarios, :method => :new, :messeange => "Error al crear la cuenta, vuelva a intentarlo"
+      Messenger.instance.obtenermensa("Error al crear la cuenta, vuelva a intentarlo")
+      redirect_to :controller => :usuarios, :method => :new
     end
   end
 
@@ -30,10 +31,12 @@ class UsuariosController < ApplicationController
   end
 
   def edit
+    controuser(params[:id])
     @user = User.find(params[:id])
   end
 
   def update
+    controuser(params[:id])
     @user = User.find(params[:id])
     @anti = @user.password
     if params[:newpassword]
@@ -48,34 +51,41 @@ class UsuariosController < ApplicationController
     @user.Birthday = params[:Birthday]
     @user.Nickname = params[:Nickname]
     if(@anti == params[:oldpassword])
-      @user.save 
-      redirect_to :controller => :usuarios, :method => :view, :id => params[:id], :messeange => "Cuenta actualizada"
+      @user.save
+      Messenger.instance.obtenermensa("Cuenta actualizada") 
+      redirect_to :controller => :usuarios, :method => :view, :id => params[:id]
     else
       redirect_to "/usuarios/edit/"<< params[:id]
     end  
   end
 
   def controlusers
+      controadmi()
       @user = User.where(:Admi => false)
   end
 
   def activate
+      controadmi()
       @users = User.find(params[:id])
       @users.Enable = params[:enable]
       if @users.save
-        if(params[:enable])
-          redirect_to "/usuarios/controlusers", :messeange => "Usuario activado"
+        if(params[:enable] == true)
+            Messenger.instance.obtenermensa("Usuario activado") 
+          else
+            Messenger.instance.obtenermensa("Usuario desactivado") 
+          end
+          redirect_to "/usuarios/controlusers" 
         else
-          redirect_to "/usuarios/controlusers", :messeange => "Usuario desactivado"
-        end
-      else
-        redirect_to "/usuarios/controlusers", :messeange => "Error al activar/desctivar usuario"
+          Messenger.instance.obtenermensa("Problemas al activar/desactivar") 
+          redirect_to "/usuarios/controlusers" 
       end
   end
 
   def delete
+      controadmi()
       @users = User.find(params[:id])
       @users.destroy
+      Messenger.instance.obtenermensa("Usuario eliminado") 
       redirect_to "/usuarios/controlusers"
   end
 
@@ -84,6 +94,18 @@ class UsuariosController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :Type, :Enable, :Name, :LastName, :Genre, :Country, :City, :Birthday, :Nickname )
+  end
+
+  def controuser(identi)
+    if(current_user== nil || current_user.id != identi)
+      redirect_to root_path
+    end
+  end
+
+  def controadmi()
+    if(current_user == nil || current_user.Admi == false)
+      redirect_to root_path
+    end
   end
 
 
