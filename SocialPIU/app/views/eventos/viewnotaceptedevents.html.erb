@@ -24,13 +24,13 @@
 			<%=usu.Name + usu.LastName%>
 		</td>
 		<td>
-			<form action="/event/accept">
+			<form action="/event/accept" method="post">
 				<input type="hidden" name="id" value="<%=elemento.id%>" />
 				<input type="submit" value="Aceptar evento"/> 
 			</form>
 		</td>
 		<td>
-			<form action="/event/delete">
+			<form action="/event/delete" method="post">
 				<input type="hidden" name="id" value="<%=elemento.id%>" />
 				<input type="submit" value="Eliminar evento"/> 
 			</form>

@@ -31,12 +31,10 @@ class UsuariosController < ApplicationController
   end
 
   def edit
-    controuser(params[:id])
     @user = User.find(params[:id])
   end
 
   def update
-    controuser(params[:id])
     @user = User.find(params[:id])
     @anti = @user.password
     if params[:newpassword]
@@ -60,16 +58,14 @@ class UsuariosController < ApplicationController
   end
 
   def controlusers
-      controadmi()
       @user = User.where(:Admi => false)
   end
 
   def activate
-      controadmi()
       @users = User.find(params[:id])
       @users.Enable = params[:enable]
       if @users.save
-        if(params[:enable] == true)
+        if(params[:enable] == "true".to_s)
             Messenger.instance.obtenermensa("Usuario activado") 
           else
             Messenger.instance.obtenermensa("Usuario desactivado") 
@@ -82,7 +78,6 @@ class UsuariosController < ApplicationController
   end
 
   def delete
-      controadmi()
       @users = User.find(params[:id])
       @users.destroy
       Messenger.instance.obtenermensa("Usuario eliminado") 

@@ -1,18 +1,16 @@
 class EventosController < ApplicationController
 
 	def new
-		controllogin()
 	end
 
 	def create
-		controuser(params[:Iduse])
 		@evento = Event.new
 		@evento.description = params[:Description]
 		@evento.tipo = params[:tipo]
 		@evento.direction= params[:Direction]
 		@evento.name = params[:Name]
 		@evento.iduser = params[:Iduse]
-		if(current_user.Admi == true)
+		if(params[:Enable] == "true".to_s)
 			@evento.enable = true
 		else
 			@evento.enable = false
@@ -20,7 +18,7 @@ class EventosController < ApplicationController
 		@evento.date_create = params[:Fecha]
 		@evento.date_modify = params[:Fecha]
 		if @evento.save
-			if(current_user.Admi == true)
+			if(params[:Enable] == "true".to_s)
 				Messenger.instance.obtenermensa("Evento creado") 
 				redirect_to :controller => :start, :method => :index
 			else
@@ -34,7 +32,6 @@ class EventosController < ApplicationController
 	end
 
 	def delete
-		controadmi()
 		@evento = Event.find(params[:id])
       	@evento.destroy
       	Messenger.instance.obtenermensa("Evento eliminado") 
@@ -43,11 +40,9 @@ class EventosController < ApplicationController
 
 	def edit
 		@evento = Event.find(params[:id])
-		controuser(@evento.iduser)
 	end
 
 	def update
-		controuser(params[:Iduse])
 		@evento = Event.find(params[:id])
 		@evento.description = params[:Description]
 		@evento.tipo = params[:tipo]
@@ -65,7 +60,6 @@ class EventosController < ApplicationController
 	end
 
 	def accept
-		controadmi()
 		@evento = Event.find(params[:id])
       	@evento.enable = true
       	if @evento.save
@@ -82,7 +76,6 @@ class EventosController < ApplicationController
 	end
 
 	def viewnotaceptedevents
-		controadmi()
 		@evento = Event.where(:enable => false)
 	end
 
