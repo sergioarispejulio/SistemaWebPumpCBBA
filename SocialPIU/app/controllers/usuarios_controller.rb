@@ -106,7 +106,7 @@ class UsuariosController < ApplicationController
     if(current_user == nil && current_user.Admi == "true")
       redirect_to root_url
     end
-    @user = User.where(:Admi => false)
+    @user = User.all
   end
 
   def activate #Activa/Desactiva un usuario (post)

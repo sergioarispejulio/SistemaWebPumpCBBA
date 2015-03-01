@@ -42,8 +42,10 @@ class EventosController < ApplicationController
 
 	def edit #Va a la pantalla de editar evento (get)
 		@evento = Event.find(params[:id])
-		if(current_user == nil && current_user.id != @evento.Iduse)
-			redirect_to root_url
+		if( (current_user == nil && current_user.id != @evento.Iduse))
+			if(current_user.Admi == false) 
+				redirect_to root_url
+			end
 		end
 	end
 
@@ -65,12 +67,16 @@ class EventosController < ApplicationController
 
 	def activate #Activa/Desactiva un evento (post)
 		@evento = Event.find(params[:id])
-      	@evento.enable = true
+      	@evento.enable = params[:enable]
       	if @evento.save
-      		Messenger.instance.obtenermensa("Evento aceptado") 
+      		if(params[:enable] == "true")
+      			Messenger.instance.obtenermensa("Evento habilitado") 
+      		else
+      			Messenger.instance.obtenermensa("Evento deshabilitado") 
+      		end
     		redirect_to "/event/viewnotaceptedevents"
     	else
-    		Messenger.instance.obtenermensa("Error al aceptar evento") 
+    		Messenger.instance.obtenermensa("Error al habilitar/deshabilitar evento") 
     		redirect_to "/event/viewnotaceptedevents"
   		end
 	end
@@ -83,7 +89,7 @@ class EventosController < ApplicationController
 		if(current_user == nil && current_user.Admi == "true")
 			redirect_to root_url
 		end
-		@evento = Event.where(:enable => false)
+		@evento = Event.all
 	end
 
 	private

@@ -1,8 +1,9 @@
 
 	<%if current_user%>
-		<%if @evento.iduser == current_user.id && @evento.date_modify >= Date.today %>
+		<%if (@evento.iduser == current_user.id && @evento.date_modify >= Date.today) || current_user.Admi == true%>
 			<a href="/event/edit/<%=@evento.id%>">Editar</a><br>
 		<%end%>
+
 	<%end%>
 
 <h1><%=@evento.name%> </h1> <br>

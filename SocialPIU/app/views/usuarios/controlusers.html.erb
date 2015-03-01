@@ -40,25 +40,29 @@
 			<%=elemento.Type%>
 		</td>
 		<td>
-			<%if elemento.Enable%>
-				<form action="/usuarios/activate" method="post">
-					<input type="hidden" name="id" value="<%=elemento.id%>" />
-					<input type="hidden" name="enable" value="false" />
-					<input type="submit" value="Inhabilitar usuario"/> 
-				</form>
-			<%else%>
-				<form action="/usuarios/activate" method="post">
-					<input type="hidden" name="id" value="<%=elemento.id%>" />
-					<input type="hidden" name="enable" value="true" />
-					<input type="submit" value="Habilitar usuario"/> 
-				</form>
+			<%if elemento.Admi == false%>
+				<%if elemento.Enable%>
+					<form action="/usuarios/activate" method="post">
+						<input type="hidden" name="id" value="<%=elemento.id%>" />
+						<input type="hidden" name="enable" value="false" />
+						<input type="submit" value="Inhabilitar usuario"/> 
+					</form>
+				<%else%>
+					<form action="/usuarios/activate" method="post">
+						<input type="hidden" name="id" value="<%=elemento.id%>" />
+						<input type="hidden" name="enable" value="true" />
+						<input type="submit" value="Habilitar usuario"/> 
+					</form>
+				<%end%>
 			<%end%>
 		</td>
 		<td>
-			<form action="/usuarios/delete" method="post">
-				<input type="hidden" name="id" value="<%=elemento.id%>" />
-				<input type="submit" value="Eliminar eusuario"/> 
-			</form>
+			<%if elemento.Admi == false%>
+				<form action="/usuarios/delete" method="post">
+					<input type="hidden" name="id" value="<%=elemento.id%>" />
+					<input type="submit" value="Eliminar eusuario"/> 
+				</form>
+			<%end%>
 		</td>
 
 	</tr>

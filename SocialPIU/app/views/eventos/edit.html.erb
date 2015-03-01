@@ -2,7 +2,11 @@
 
 	Titulo <input name="Name" type="text" value="<%=@evento.name%>"/> <br>
 	Lugar <input name="Direction" type="text" value="<%=@evento.direction%>" /> <br>
-	Fecha <input name="Fecha" type="date" min="<%=Date.today%>" value="<%=@evento.date_modify%>"/> <br>
+	<%if @evento.enable == false || current_user.Admi == true%>
+		Fecha <input name="Fecha" type="date" min="<%=Date.today%>" value="<%=@evento.date_modify%>"/> <br>
+	<%else%>
+		<input name="Fecha" type="hidden" value="<%=@evento.date_modify%>"/>
+	<%end%>
 	Tipo de evento <select name="tipo">
 
 		<%if @evento.tipo == "Torneo Local"%>

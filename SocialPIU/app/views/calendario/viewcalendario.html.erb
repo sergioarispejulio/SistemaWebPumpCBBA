@@ -2,10 +2,10 @@
 
 <form>
 <%if(params[:ano] != nil && params[:mes] != nil)%>
-	  Año: <input type="number" name="ano" min="1" value=<%=params[:ano]%>> mes: <input type="number" name="mes" min="1" max="12" value=<%=params[:mes]%>><br>
+	  Año: <input type="number" name="ano" min="2015" value=<%=params[:ano]%>> mes: <input type="number" name="mes" min="1" max="12" value=<%=params[:mes]%>><br>
   <input type="submit" value="Buscar">
 <%else%>
-	  Año: <input type="number" name="ano" min="1" value=<%=Date.today.year%>> mes: <input type="number" name="mes" min="1" max="12" value=<%=Date.today.month%>><br>
+	  Año: <input type="number" name="ano" min="2015" value=<%=Date.today.year%>> mes: <input type="number" name="mes" min="1" max="12" value=<%=Date.today.month%>><br>
 	  <input type="submit" value="Buscar">
 <%end%>
 </form>
