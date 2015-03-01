@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SocialPIU</title>
+  <title>CalendarPUMPCBBA</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -18,8 +18,8 @@
         <div class="user_nav">
           <ul class="nav navbar-nav">
             <% if current_user %>
-              <li><a href="/event/newevent">Crear Evento</a></li>
               <li><%= link_to "Cerra seccion", logout_path %></li>
+              <li><a href="/event/newevent">Crear Evento</a></li>
               <% if current_user.Admi == true%>
                 <li><a href="/event/viewnotaceptedevents">Ver eventos pendientes</a></li>
                 <li><a href="/usuarios/controlusers">Ver usuarios</a></li>

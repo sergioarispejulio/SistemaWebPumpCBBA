@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get "event/newevent" => "eventos#new"
   post "event/createevent" => "eventos#create"
-  post "event/accept" => "eventos#accept"
+  post "event/accept" => "eventos#activate"
   post "event/delete" => "eventos#delete"
   get "event/edit/:id" => "eventos#edit"
   post "event/update" => "eventos#update"

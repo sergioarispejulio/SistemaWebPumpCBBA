@@ -17,37 +17,49 @@
 	<%end%>
 	</select><br>
 
-	Categoria <select name="Type">
-	<%if @user.Type == "Inical"%>
-		<option value="Inical" selected>Inicial</option>
+	<%if current_user.Admi == true %>
+		Categoria <select name="Type">
+			<%if @user.Type == "Inical"%>
+				<option value="Inical" selected>Inicial</option>
+			<%else%>
+				<option value="Inical">Inicial</option>
+			<%end%>
+			<%if @user.Type == "Semiprofesional"%>
+				<option value="Semiprofesional" selected>Semiprofesional</option>
+			<%else%>
+				<option value="Semiprofesional">Semiprofesional</option>
+			<%end%>
+			<%if @user.Type == "Profesional"%>
+				<option value="Profesional" selected>Profesional</option>
+			<%else%>
+				<option value="Profesional">Profesional</option>
+			<%end%>
+			<%if @user.Type == "Freestyler"%>
+				<option value="Freestyler" selected>Freestyle</option>
+			<%else%>
+				<option value="Freestyler">Freestyle</option>
+			<%end%>
+		</select><br>
 	<%else%>
-		<option value="Inical">Inicial</option>
+		<input type="hidden" name="Type" value="<%=@user.Type%>" />
 	<%end%>
-	<%if @user.Type == "Semiprofesional"%>
-		<option value="Semiprofesional" selected>Semiprofesional</option>
-	<%else%>
-		<option value="Semiprofesional">Semiprofesional</option>
-	<%end%>
-	<%if @user.Type == "Profesional"%>
-		<option value="Profesional" selected>Profesional</option>
-	<%else%>
-		<option value="Profesional">Profesional</option>
-	<%end%>
-	<%if @user.Type == "Freestyler"%>
-		<option value="Freestyler" selected>Freestyle</option>
-	<%else%>
-		<option value="Freestyler">Freestyle</option>
-	<%end%>
-	</select><br>
 
 	Email <input name="email" type="text" value="<%=@user.email%>"/> <br>
 	Fecha de Nacimiento <input name="Birthday" type="date" value="<%=@user.Birthday%>"/> <br>
-	Nueva contrasena <input name="newpassword" type="password"/> <br>
-	Repetir Contrasena <input name="password_confirmation" type="password" /> <br>
-	Escriba su contraseña actual para que los cambios se hagan<br>
-	Contrasena actual <input name="oldpassword" type="password"/> <br> 
+	
+	<%if current_user.id.to_s == params[:id] %>
+		Nueva contrasena <input name="newpassword" type="password"/> <br>
+		Repetir Contrasena <input name="password_confirmation" type="password" /> <br>
+		Escriba su contraseña actual para que los cambios se hagan<br>
+		Contrasena actual <input name="oldpassword" type="password"/> <br>
+		<input type="hidden" name="Admi" value="<%=%>" /> 
+	<%else%>
+		<input type="hidden" name="newpassword" value="" />
+	<%end%>
 
+	<input type="hidden" name="Admi" value="<%=@current_user.Admi%>" /> 
 	<input type="hidden" name="id" value="<%=params[:id]%>" />
+	<input type="hidden" name="current" value="<%=current_user.id%>" />
    
  	<input type="submit" />   
  	<input type="reset" />

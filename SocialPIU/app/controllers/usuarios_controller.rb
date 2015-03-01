@@ -1,12 +1,17 @@
 class UsuariosController < ApplicationController
-  def new
+  def new #Dirigue a la pantalla de crear usuario (get)
+    if(current_user)
+      redirect_to root_url
+    end
   end
   
-  def create
+  def create #Crea el usuario (post)
     @user = User.new
+    @aux = params[:password].clone
     @user.password = params[:password]
     @user.password_confirmation = params[:password_confirmation]
     @user.email =  params[:email]
+    @user.Actucontrasena = encriptar(@aux)
     @user.Type = params[:Type]
     @user.Name = params[:Name] 
     @user.LastName = params[:LastName]
@@ -22,24 +27,30 @@ class UsuariosController < ApplicationController
       redirect_to :controller => :start, :method => :index
     else
       Messenger.instance.obtenermensa("Error al crear la cuenta, vuelva a intentarlo")
-      redirect_to :controller => :usuarios, :method => :new
+      redirect_to signup_path
     end
   end
 
-  def view
+  def view #Muestra el usuario (get)
     @user = User.find(params[:id])
   end
 
-  def edit
+  def edit #Dirigue a la pantalla de actualizar usuario (get)
+    if(current_user == nil && current_user.id != params[:id])
+      redirect_to root_url
+    end
     @user = User.find(params[:id])
   end
 
-  def update
+  def update #Actualiza el usuario (post)
     @user = User.find(params[:id])
-    @anti = @user.password
-    if params[:newpassword]
+    @anti = @user.Actucontrasena
+    if (params[:newpassword].to_s.length != 0 && params[:newpassword] == params[:password_confirmation])
+      puts params[:newpassword]
       @user.password = params[:newpassword]
       @user.password_confirmation = params[:password_confirmation]
+      @aux = params[:newpassword].clone
+      @user.Actucontrasena = encriptar(@aux)
     end
     @user.email =  params[:email]
     @user.Type = params[:Type]
@@ -48,20 +59,57 @@ class UsuariosController < ApplicationController
     @user.Genre = params[:Genre]
     @user.Birthday = params[:Birthday]
     @user.Nickname = params[:Nickname]
-    if(@anti == params[:oldpassword])
-      @user.save
-      Messenger.instance.obtenermensa("Cuenta actualizada") 
-      redirect_to :controller => :usuarios, :method => :view, :id => params[:id]
+
+    if(params[:Admi].to_s == "true")
+
+      if(params[:current].to_s == params[:id].to_s)
+        if (@anti == encriptar(params[:oldpassword]) && params[:newpassword] == params[:password_confirmation])
+          if @user.save
+            Messenger.instance.obtenermensa("Cuenta actualizada por admi dando clasve") 
+            redirect_to "/usuarios/view/"<<params[:id]
+          else
+            Messenger.instance.obtenermensa("Problemas al actualizar cuenta") 
+            redirect_to "/usuarios/view/"<<params[:id]
+          end
+        else  
+          Messenger.instance.obtenermensa("La contrasena antigua o la verificacion de la nueva contraseña no es valida") 
+          redirect_to "/usuarios/edit/"<< params[:id]
+        end
+      else
+        if@user.save
+          Messenger.instance.obtenermensa("Cuenta actualizada") 
+          redirect_to "/usuarios/view/"<<params[:id]
+        else
+          Messenger.instance.obtenermensa("Problemas al actualizar cuenta") 
+          redirect_to "/usuarios/view/"<<params[:id]
+        end
+      end
+
     else
-      redirect_to "/usuarios/edit/"<< params[:id]
+      if(@anti == encriptar(params[:oldpassword]) && params[:newpassword] == params[:password_confirmation]  )
+        if @user.save
+          Messenger.instance.obtenermensa("Cuenta actualizada") 
+          redirect_to "/usuarios/view/"<<params[:id]
+        else
+          Messenger.instance.obtenermensa("Problemas al actualizar cuenta") 
+          redirect_to "/usuarios/view/"<<params[:id]
+        end
+      else
+        Messenger.instance.obtenermensa("La contrasena antigua o la verificacion de la nueva contraseña no es valida") 
+        redirect_to "/usuarios/edit/"<< params[:id]
+      end
+
     end  
   end
 
-  def controlusers
-      @user = User.where(:Admi => false)
+  def controlusers #Muestra la lista de todos los usuarios (get)
+    if(current_user == nil && current_user.Admi == "true")
+      redirect_to root_url
+    end
+    @user = User.where(:Admi => false)
   end
 
-  def activate
+  def activate #Activa/Desactiva un usuario (post)
       @users = User.find(params[:id])
       @users.Enable = params[:enable]
       if @users.save
@@ -77,10 +125,14 @@ class UsuariosController < ApplicationController
       end
   end
 
-  def delete
+  def delete #Elimina un usuario (post)
       @users = User.find(params[:id])
       @users.destroy
       Messenger.instance.obtenermensa("Usuario eliminado") 
+      @events = Event.where(:iduser => params[:id])
+      @events.each do |elemento|
+        elemento.destroy
+      end
       redirect_to "/usuarios/controlusers"
   end
 
@@ -88,19 +140,13 @@ class UsuariosController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :Type, :Enable, :Name, :LastName, :Genre, :Country, :City, :Birthday, :Nickname )
+    params.require(:user).permit(:Actucontrasena ,:email, :password, :password_confirmation, :Type, :Enable, :Name, :LastName, :Genre, :Country, :City, :Birthday, :Nickname, :id )
+    params.require(:event).permit(:iduser)
   end
 
-  def controuser(identi)
-    if(current_user== nil || current_user.id != identi)
-      redirect_to root_path
-    end
-  end
-
-  def controadmi()
-    if(current_user == nil || current_user.Admi == false)
-      redirect_to root_path
-    end
+  def encriptar(elemento)
+    messange = elemento<<elemento.reverse
+    return messange.crypt("PUMPCBBA")
   end
 
 

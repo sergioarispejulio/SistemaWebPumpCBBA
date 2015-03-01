@@ -6,11 +6,11 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-
-
+@messange = "saj1010"<<"saj1010".reverse
 @user = User.new
 @user.password = "saj1010"
  @user.password_confirmation = "saj1010"
+ @user.Actucontrasena = @messange.crypt("PUMPCBBA")
     @user.email =  "sergio_arispe@hotmail.com"
     @user.Type = "Jugador"
     @user.Name = "Sergio"

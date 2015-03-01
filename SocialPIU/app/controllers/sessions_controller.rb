@@ -1,8 +1,8 @@
 class SessionsController < ApplicationController
-  def new
+  def new #Va a la ventana de login
   end
   
-  def create
+  def create #Inicia el login y verificacion de este (get)
     user = login(params[:email], params[:password], params[:remember_me])
     if user 
       if(current_user.Enable)
@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  def destroy
+  def destroy #Cierra seccion
   	logout
   	redirect_to root_url
   end

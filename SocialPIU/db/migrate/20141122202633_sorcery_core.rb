@@ -6,6 +6,7 @@ class SorceryCore < ActiveRecord::Migration
       t.string :salt,             :null => false
       t.string :Type,             :null => false
       t.boolean :Enable,            :null => false 
+    t.string :Actucontrasena,          :null => false
 	  t.string :Name
 	  t.string :LastName 
 	  t.string :Genre 

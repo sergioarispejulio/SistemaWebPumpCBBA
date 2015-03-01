@@ -1,9 +1,12 @@
 class EventosController < ApplicationController
 
-	def new
+	def new #Va a la pantalla para crear eventos (get)
+		if(current_user == nil)
+			redirect_to root_url
+		end
 	end
 
-	def create
+	def create #Crea un evento (post)
 		@evento = Event.new
 		@evento.description = params[:Description]
 		@evento.tipo = params[:tipo]
@@ -18,37 +21,38 @@ class EventosController < ApplicationController
 		@evento.date_create = params[:Fecha]
 		@evento.date_modify = params[:Fecha]
 		if @evento.save
-			if(params[:Enable] == "true".to_s)
+			if(params[:Enable] == "true")
 				Messenger.instance.obtenermensa("Evento creado") 
-				redirect_to :controller => :start, :method => :index
 			else
 				Messenger.instance.obtenermensa("Evento creado, esperar hasta que un administrador valide el evento") 
-				redirect_to :controller => :start, :method => :index
 			end
+			redirect_to :controller => :start, :method => :in
     	else
     		Messenger.instance.obtenermensa("Error al crear el evento, vuelva a intentarlo") 
     		redirect_to :controller => :eventos, :method => :new
   		end
 	end
 
-	def delete
+	def delete #Elimina un evento (post)
 		@evento = Event.find(params[:id])
       	@evento.destroy
       	Messenger.instance.obtenermensa("Evento eliminado") 
       	redirect_to "/event/viewnotaceptedevents"
 	end
 
-	def edit
+	def edit #Va a la pantalla de editar evento (get)
 		@evento = Event.find(params[:id])
+		if(current_user == nil && current_user.id != @evento.Iduse)
+			redirect_to root_url
+		end
 	end
 
-	def update
+	def update #Actualiza un evento (post)
 		@evento = Event.find(params[:id])
 		@evento.description = params[:Description]
 		@evento.tipo = params[:tipo]
 		@evento.direction= params[:Direction]
 		@evento.name = params[:Name]
-		@evento.iduser = params[:Iduse]
 		@evento.date_modify = params[:Fecha]
 		if @evento.save
 			Messenger.instance.obtenermensa("Evento editado") 
@@ -59,7 +63,7 @@ class EventosController < ApplicationController
   		end
 	end
 
-	def accept
+	def activate #Activa/Desactiva un evento (post)
 		@evento = Event.find(params[:id])
       	@evento.enable = true
       	if @evento.save
@@ -71,11 +75,14 @@ class EventosController < ApplicationController
   		end
 	end
 
-	def view
+	def view #Va a la pantalla del evento (get)
 		@evento = Event.find(params[:id])
 	end
 
-	def viewnotaceptedevents
+	def viewnotaceptedevents #Va a la pantalla de control de eventos (get)
+		if(current_user == nil && current_user.Admi == "true")
+			redirect_to root_url
+		end
 		@evento = Event.where(:enable => false)
 	end
 
@@ -84,24 +91,6 @@ class EventosController < ApplicationController
 	def user_params
     	params.require(:event).permit(:description, :direction, :enable, :iduser, :name, :tipo, :date_modify, :date_create)
     	params.require(:user).permit(:Name, :LastName, :Admi)
-  	end
-
-  	def controllogin()
-  		if(current_user== nil)
-  			root_path
-  		end
-  	end
-
-  	def controuser(identi)
-  		if(current_user== nil || current_user.id != identi)
-  			root_path
-  		end
-  	end
-
-  	def controadmi()
-  		if(current_user == nil || current_user.Admi == false)
-  			root_path
-  		end
   	end
 
 end
