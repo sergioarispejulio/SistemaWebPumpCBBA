@@ -42,8 +42,10 @@ class EventosController < ApplicationController
 
 	def edit #Va a la pantalla de editar evento (get)
 		@evento = Event.find(params[:id])
-		if( (current_user == nil && current_user.id != @evento.Iduse))
-			if(current_user.Admi == false) 
+		if(current_user == nil)
+			redirect_to root_url
+		else
+			if(current_user.Admi == false || current_user.id != @evento.Iduse)
 				redirect_to root_url
 			end
 		end
@@ -86,8 +88,12 @@ class EventosController < ApplicationController
 	end
 
 	def viewnotaceptedevents #Va a la pantalla de control de eventos (get)
-		if(current_user == nil && current_user.Admi == "true")
+		if(current_user == nil)
 			redirect_to root_url
+		else
+			if(current_user.Admi == false)
+				redirect_to root_url
+			end
 		end
 		@evento = Event.all
 	end

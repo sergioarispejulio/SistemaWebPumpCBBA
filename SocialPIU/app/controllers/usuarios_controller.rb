@@ -1,6 +1,6 @@
 class UsuariosController < ApplicationController
   def new #Dirigue a la pantalla de crear usuario (get)
-    if(current_user)
+    if(current_user != nil)
       redirect_to root_url
     end
   end
@@ -36,9 +36,14 @@ class UsuariosController < ApplicationController
   end
 
   def edit #Dirigue a la pantalla de actualizar usuario (get)
-    if(current_user == nil && current_user.id != params[:id])
+    if(current_user == nil)
       redirect_to root_url
+    else
+      if(current_user.Admi == false || current_user.id != params[:id])
+        redirect_to root_url
+      end
     end
+
     @user = User.find(params[:id])
   end
 
@@ -103,8 +108,12 @@ class UsuariosController < ApplicationController
   end
 
   def controlusers #Muestra la lista de todos los usuarios (get)
-    if(current_user == nil && current_user.Admi == "true")
+    if(current_user == nil)
       redirect_to root_url
+    else
+      if(current_user.Admi == false)
+        redirect_to root_url
+      end
     end
     @user = User.all
   end
@@ -140,7 +149,7 @@ class UsuariosController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:Actucontrasena ,:email, :password, :password_confirmation, :Type, :Enable, :Name, :LastName, :Genre, :Country, :City, :Birthday, :Nickname, :id )
+    params.require(:user).permit(:Actucontrasena ,:email, :password, :password_confirmation, :Type, :Enable, :Name, :LastName, :Genre, :Country, :City, :Birthday, :Nickname, :id, :Admi )
     params.require(:event).permit(:iduser)
   end
 
