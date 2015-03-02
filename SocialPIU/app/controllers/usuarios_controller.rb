@@ -39,8 +39,10 @@ class UsuariosController < ApplicationController
     if(current_user == nil)
       redirect_to root_url
     else
-      if(current_user.Admi == false || current_user.id != params[:id])
-        redirect_to root_url
+      if(current_user.id != params[:id])
+        if(current_user.Admi == false)
+          redirect_to root_url
+        end
       end
     end
 

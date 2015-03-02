@@ -45,8 +45,10 @@ class EventosController < ApplicationController
 		if(current_user == nil)
 			redirect_to root_url
 		else
-			if(current_user.Admi == false || current_user.id != @evento.Iduse)
-				redirect_to root_url
+			if(current_user.id != @evento.iduser)
+				if(current_user.Admi == false)
+					redirect_to root_url
+				end
 			end
 		end
 	end
