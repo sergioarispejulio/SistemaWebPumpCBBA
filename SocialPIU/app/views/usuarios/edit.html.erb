@@ -1,8 +1,8 @@
 <form action="/usuarios/update" method="post">
 
-	Nombre <input name="Name" type="text" value="<%=@user.Name%>"/> <br>
-	Apellido <input name="LastName" type="text" value="<%=@user.LastName%>" /> <br>
-	Nickname <input name="Nickname" type="text" value="<%=@user.Nickname%>"/> <br>
+	Nombre <input name="Name" type="text" value="<%=@user.Name%>" required/> <br>
+	Apellido <input name="LastName" type="text" value="<%=@user.LastName%>" required/> <br>
+	Nickname <input name="Nickname" type="text" value="<%=@user.Nickname%>" required/> <br>
 
 	Sexo <select name="Genre">
 	<%if @user.Genre == "Hombre"%>
@@ -44,15 +44,15 @@
 		<input type="hidden" name="Type" value="<%=@user.Type%>" />
 	<%end%>
 
-	Email <input name="email" type="text" value="<%=@user.email%>"/> <br>
-	Fecha de Nacimiento <input name="Birthday" type="date" value="<%=@user.Birthday%>"/> <br>
+	Email <input name="email" type="text" value="<%=@user.email%>" required/> <br>
+	Fecha de Nacimiento <input name="Birthday" type="date" value="<%=@user.Birthday%>" required/> <br>
 	
 	<%if current_user.id.to_s == params[:id] %>
 		Nueva contrasena <input name="newpassword" type="password"/> <br>
 		Repetir Contrasena <input name="password_confirmation" type="password" /> <br>
 		Escriba su contraseña actual para que los cambios se hagan<br>
-		Contrasena actual <input name="oldpassword" type="password"/> <br>
-		<input type="hidden" name="Admi" value="<%=%>" /> 
+		Contrasena actual <input name="oldpassword" type="password" required/> <br>
+		<input type="hidden" name="Admi" value="<%=@user.Admi%>" /> 
 	<%else%>
 		<input type="hidden" name="newpassword" value="" />
 	<%end%>

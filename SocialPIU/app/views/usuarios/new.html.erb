@@ -1,7 +1,7 @@
 <form action="/usuarios/crearusu" method="post">
-	Nombre <input name="Name" type="text" /> <br>
-	Apellido <input name="LastName" type="text" /> <br>
-	Nickname <input name="Nickname" type="text" /> <br>
+	Nombre <input name="Name" type="text" required/> <br>
+	Apellido <input name="LastName" type="text" required/> <br>
+	Nickname <input name="Nickname" type="text" required/> <br>
 	Sexo <select name="Genre">
 	<option value="Hombre">Masculino</option>
 	<option value="Mujer">Femenino</option>
@@ -12,10 +12,10 @@
 	<option value="Profesional">Profesional</option>
 	<option value="Freestyler">Freestyle</option>
 	</select><br>
-	Email <input name="email" type="text" /> <br>
-	Fecha de Nacimiento <input name="Birthday" type="date" /> <br>
-	Contrasena <input name="password" type="password" /> <br>
-	Repetir Contrasena <input name="password_confirmation" type="password" /> <br>
+	Email <input name="email" type="text" required/> <br>
+	Fecha de Nacimiento <input name="Birthday" type="date" required/> <br>
+	Contrasena <input name="password" type="password" required/> <br>
+	Repetir Contrasena <input name="password_confirmation" type="password" required/> <br>
 
 	<input name="Country" type="hidden" value="Bolivia" /> 
  	<input name="City" type="hidden" value="Cochabamba" /> 

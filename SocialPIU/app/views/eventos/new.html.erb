@@ -1,8 +1,8 @@
 <form action="/event/createevent" method="post">
 
-	Titulo <input name="Name" type="text" /> <br>
-	Lugar <input name="Direction" type="text" /> <br>
-	Fecha <input name="Fecha" type="date" min="<%=Date.today%>" value="<%=Date.today%>"/> <br>
+	Titulo <input name="Name" type="text" required/> <br>
+	Lugar <input name="Direction" type="text" required/> <br>
+	Fecha <input name="Fecha" type="date" min="<%=Date.today%>" value="<%=Date.today%>" required/> <br>
 	Tipo de evento <select name="tipo">
 		<option value="Torneo Local" selected>Torneo Local</option>
 		<option value="Torneo Regional">Torneo Regional</option>

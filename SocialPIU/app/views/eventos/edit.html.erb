@@ -1,9 +1,9 @@
 <form action="/event/update" method="post">
 
-	Titulo <input name="Name" type="text" value="<%=@evento.name%>"/> <br>
-	Lugar <input name="Direction" type="text" value="<%=@evento.direction%>" /> <br>
+	Titulo <input name="Name" type="text" value="<%=@evento.name%>" required/> <br>
+	Lugar <input name="Direction" type="text" value="<%=@evento.direction%>" required/> <br>
 	<%if @evento.enable == false || current_user.Admi == true%>
-		Fecha <input name="Fecha" type="date" min="<%=Date.today%>" value="<%=@evento.date_modify%>"/> <br>
+		Fecha <input name="Fecha" type="date" min="<%=Date.today%>" value="<%=@evento.date_modify%>" required/> <br>
 	<%else%>
 		<input name="Fecha" type="hidden" value="<%=@evento.date_modify%>"/>
 	<%end%>
